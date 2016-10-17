@@ -29,3 +29,14 @@ largestPalindromeProduct :: [Integer] -> [Integer] -> [Integer]
 largestPalindromeProduct xs ys =
   take 1 . sortBy (flip compare) $ filter (palindrome . show) [ x * y | x <- sortBy (flip compare) xs, y <- sortBy ( flip compare) ys]
 
+palindrome :: String -> Bool
+palindrome [] = True
+palindrome xs = (take 1 xs == (take 1 . reverse $ xs)) && (palindrome . drop 1 . reverse . drop 1 $ xs)
+
+problem5 :: Integer -> [Integer]
+problem5 n = take 1 [x | x <- [1..], y <- [1..n]]
+
+-- problem6 x = (square $ sum [1..x]) - (sum $ map square [1..x])
+--
+-- square x = x * x
+

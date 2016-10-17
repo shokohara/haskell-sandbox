@@ -1,25 +1,60 @@
 import Test.Hspec
 import Problem
+import Sandbox
 
 import Data.Maybe
 
+input :: [[Integer]]
+input = [[00,01,02,03,04,05,06,07,08]
+  ,[10,11,12,13,14,15,16,17,18]
+  ,[20,21,22,23,24,25,26,27,28]
+  ,[30,31,32,33,34,35,36,37,38]
+  ,[40,41,42,43,44,45,46,47,48]
+  ,[50,51,52,53,54,55,56,57,58]
+  ,[60,61,62,63,64,65,66,67,68]
+  ,[70,71,72,73,74,75,76,77,78]
+  ,[80,81,82,83,84,85,86,87,88]]
+
+testInput :: [[Integer]]
+testInput = [[0,1,2],[3,4,5],[6,7,8],[10,11,12],[13,14,15],[16,17,18],[20,21,22],[23,24,25],[26,27,28],[30,31,32],[33,34,35],[36,37,38],[40,41,42],[43,44,45],[46,47,48],[50,51,52],[53,54,55],[56,57,58],[60,61,62],[63,64,65],[66,67,68],[70,71,72],[73,74,75],[76,77,78],[80,81,82],[83,84,85],[86,87,88]]
+
+answer :: [[Integer]]
+answer = [[00,01,02,10,11,12,20,21,22]
+  ,[03,04,05,13,14,15,23,24,25]
+  ,[06,07,08,16,17,18,26,27,28]
+  ,[30,31,32,40,41,42,50,51,52]
+  ,[33,34,35,43,44,45,53,54,55]
+  ,[36,37,38,46,47,48,56,57,58]
+  ,[60,61,62,70,71,72,80,81,82]
+  ,[63,64,65,73,74,75,83,84,85]
+  ,[66,67,68,76,77,78,86,87,88]]
+
 main :: IO ()
 main = hspec $ do
-  describe "p1" $ it "" $
-    p1 10 `shouldBe` 23
-  describe "problem1" $ it "" $
-    problem1 `shouldBe` 233168
-  describe "fib" $ it "" $
-    map fib [0..9] `shouldBe` [1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
-  describe "problem2" $ it "" $
-    problem2 `shouldBe` 4613732
-  describe "listPrimeFactor" $ it "" $
-    listPrimeFactor 13195 [] `shouldBe` [5, 7, 13, 29]
-  describe "problem3" $ it "" $
-    problem3 `shouldBe` 6857
-  describe "palindrome" $ it "" $ do
-    palindrome (show 101) `shouldBe` True
-    palindrome (show 1001) `shouldBe` True
-  describe "problem4" $ it "" $
-    head problem4 `shouldBe` 906609
+  describe "da0shi" $ do
+    it "g" $ do
+      print $ f
+--      let x = g [[]] [[]] testInput
+--      print x
+--      let y = g (x!!0) (x!!1) (x!!2)
+--      print y
+--      let z = g (y!!0) (y!!1) (y!!2)
+--      print z
+--      let a = g (z!!0) (z!!1) (z!!2)
+--      print a
+--      let b = g (a!!0) (a!!1) (a!!2)
+--      print b
+--      let c = g (b!!0) (b!!1) (b!!2)
+--      print c
+--      let b = g (c!!0) (c!!1) (c!!2)
+--      print b
+--    it "f1" $ do
+--      f [] [] [] input `shouldBe` concat input
+--    --  print $ g [[]] [[1,2,3],[4,5,6],[7,8,9]] [[]]
+----      f [[]] testInput [[]] `shouldBe` concat testInput
+----      f [[]] [[]] input `shouldBe` concat answer
+--    it "toSquare" $
+--      toSquare [[]] (head input) `shouldBe` [[00,01,02],[03,04,05],[06,07,08]]
+--    it "function" $
+--      function input `shouldBe` answer
 
