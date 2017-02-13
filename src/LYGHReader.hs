@@ -1,82 +1,39 @@
 module LYGHReader where
 
-import Control.Monad.Writer
+import System.Random
 
-logNumber :: Int -> Writer [String] Int
-logNumber x = writer (x, ["Got number: " ++ show x])
+addStuff :: Int -> Int
+--addStuff = do
+--  a <- (*2)
+--  b <- (+10)
+--  return (a+b)
+addStuff x = let
+  a = (*2) x
+  b = (+10) x
+  in a+b
 
-multWithLog :: Writer [String] Int
-multWithLog = do
-  a <- logNumber 3
-  b <- logNumber 5
-  return (a*b)
+threeCoins :: StdGen -> (Bool, Bool, Bool)
+threeCoins gen =
+  let (firstCoin, newGen) = random gen
+      (secondCoin, newGen') = random newGen
+      (thirdCoin, newGen'') = random newGen'
+  in (firstCoin, secondCoin, thirdCoin)
 
---gcd' a b
---  | b == 0 = a
---  | otherwise = gcd' b (a `mod` b)
+type Stack = [Int]
 
---gcd' :: Int -> Int -> Writer [String] Int
---gcd' a b
---  | b == 0 = do
---    tell ["Finished with " ++ show a]
---    return a
---  | otherwise = do
---    tell ([show a ++ " mod " ++ show b ++ " = " ++ show (a `mod` b)])
---    gcd' b (a `mod` b)
+pop :: Stack -> (Int, Stack)
+pop (x:xs) = (x,xs)
 
---gcdReverse :: Int -> Int -> Writer [String] Int
---gcdReverse a b
---  | b == 0 = do
---    tell ["Finished with " ++ show a]
---    return a
---  | otherwise = do
---    result <- gcdReverse b (a `mod` b)
---    tell ([show a ++ " mod " ++ show b ++ " = " ++ show (a `mod` b)])
---    return result
+push :: Int -> Stack -> ((),Stack)
+push a xs = ((), a:xs)
 
-newtype DiffList a = DiffList { getDiffList :: [a] -> [a] }
-
-toDiffList :: [a] -> DiffList a
-toDiffList xs = DiffList (xs++)
-
-fromDiffList :: DiffList a -> [a]
-fromDiffList (DiffList f) = f []
-
-instance Monoid (DiffList a) where
-  mempty = DiffList (\xs -> [] ++ xs)
-  (DiffList f) `mappend` (DiffList g) = DiffList (\xs -> f (g xs))
-
-gcd' :: Int -> Int -> Writer (DiffList String) Int
-gcd' a b
-  | b == 0 = do
-    tell (toDiffList ["Finished with " ++ show a])
-    return a
-  | otherwise = do
-    result <- gcd' b (a `mod` b)
-    tell (toDiffList [show a ++ " mod " ++ show b ++ " = " ++ show (a `mod` b)])
-    return result
-
-gcdReverse :: Int -> Int -> Writer (DiffList String) Int
-gcdReverse a b
-  | b == 0 = do
-    tell (toDiffList ["Finished with " ++ show a])
-    return a
-  | otherwise = do
-    result <- gcdReverse b (a `mod` b)
-    tell (toDiffList [show a ++ " mod " ++ show b ++ " = " ++ show (a `mod` b)])
-    return result
-
---finalCountDown :: Int -> Writer (DiffList String) ()
---finalCountDown 0 = do
---  tell (toDiffList ["0"])
---finalCountDown x = do
---  finalCountDown (x-1)
---  tell (toDiffList [show x])
-
-finalCountDown :: Int -> Writer [String] ()
-finalCountDown 0 = do
-  tell ["0"]
-finalCountDown x = do
-  finalCountDown (x-1)
-  tell [show x]
+stackManip :: Stack -> (Int, Stack)
+--stackManip stack = let
+--  ((), newStack1) = push 3 stack
+--  (a, newStack2) = pop newStack1
+--  in pop newStack2
+stackManip = do
+  push 3
+  _ <- pop
+  pop
 
