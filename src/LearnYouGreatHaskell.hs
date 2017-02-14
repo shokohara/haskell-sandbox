@@ -1,4 +1,4 @@
-module LYGHWriter where
+module LearnYouGreatHaskell where
 
 import Control.Monad.Writer
 import System.Random
