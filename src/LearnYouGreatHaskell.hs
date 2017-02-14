@@ -89,13 +89,6 @@ addStuff x = let
   b = (+10) x
   in a+b
 
-threeCoins :: StdGen -> (Bool, Bool, Bool)
-threeCoins gen =
-  let (firstCoin, newGen) = random gen
-      (secondCoin, newGen') = random newGen
-      (thirdCoin, newGen'') = random newGen'
-  in (firstCoin, secondCoin, thirdCoin)
-
 type Stack = [Int]
 
 pop :: State Stack Int
@@ -132,4 +125,14 @@ stackyStack = do
   if stackNow == [1..3]
      then put [8,3,1]
      else put [9,2,1]
+
+randomSt :: (RandomGen  g, Random a) => State g a
+randomSt = state random
+
+threeCoins :: State StdGen (Bool,Bool,Bool)
+threeCoins = do
+  a <- randomSt
+  b <- randomSt
+  c <- randomSt
+  return (a,b,c)
 
