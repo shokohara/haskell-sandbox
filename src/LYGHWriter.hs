@@ -1,6 +1,7 @@
 module LYGHWriter where
 
 import Control.Monad.Writer
+import Data.Char
 
 logNumber :: Int -> Writer [String] Int
 logNumber x = writer (x, ["Got number: " ++ show x])
@@ -79,4 +80,19 @@ finalCountDown 0 = do
 finalCountDown x = do
   finalCountDown (x-1)
   tell [show x]
+
+data Operator = Plus | Minus | Mult | Div deriving (Show, Eq)
+
+stringToOperator x
+  | x == "+" = Just Plus
+  | x == "-" = Just Minus
+  | x == "*" = Just Mult
+  | x == "/" = Just Div
+  | otherwise = Nothing
+
+stringToInteger x
+  | all isDigit x = Just (read x :: Int)
+  | otherwise = Nothing
+
+rpn = fmap stringToOperator . words
 

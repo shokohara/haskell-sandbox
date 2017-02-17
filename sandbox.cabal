@@ -22,6 +22,7 @@ library
                      , Bokunonumachi
                      , LYGHWriter
                      , HedisExample
+                     , FSP
   build-depends:       base >= 4.7 && < 5
                      , yjtools
                      , matrix
